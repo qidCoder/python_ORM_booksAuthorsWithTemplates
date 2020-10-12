@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Authors</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <div class="add_form">
+            <h1>Add a Book</h1>
+            <form method="post" action="/process_add">
+                {% csrf_token %}
+                <input type='hidden' name="which_form" value="add_book">
+
+                <div>
+                    <label>Title</label>
+                    <input type="text" name='book_title'>
+                </div>
+                <div>
+                    <label>Description</label>
+                    <textarea cols="50" rows="10"></textarea>
+                </div>
+
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+
+
+
+
+        <div id="all_books">
+
+            <table>
+                <tr id='header'>
+                    <td>ID</td>
+                    <td>Title</td>
+                    <td>Action</td>
+                </tr>
+
+                {% for book in books%}
+                <tr>
+                    <td>{{book.id}}</td>
+                    <td>{{book.title}}</td>
+                    <td><a href='/books/{{book.id}}'>Action</a></td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+    </div>
+
+    <a href="/authors" id="add_auth">Add an Author</a>
+</body>
+
+</html>
